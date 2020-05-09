@@ -1,0 +1,8 @@
+.vscode
+__pycache__
+checkpoints
+log
+pretrained_models
+res50_cj
+res50_cjrf
+res50_rf
