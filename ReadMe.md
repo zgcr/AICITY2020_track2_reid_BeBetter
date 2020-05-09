@@ -1,6 +1,6 @@
 Attribute-guided Feature Extraction and Augmentation Robust Learning for Vehicle Re-identification
 =================
-In AIcity Track2, we rank number 6(team ID 44) among all the teams with the mAP of 0.6683 on server.
+In AIcity2020 Track2, we rank number 6(team ID 44) among all the teams with the mAP of 0.6683 on server.
 
 # Authors
 Chaoran Zhuge, Yujie Peng, Yadong Li, Jiangbo Ai, Junru Chen
