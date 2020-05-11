@@ -10,7 +10,7 @@ Chaoran Zhuge, Yujie Peng, Yadong Li, Jiangbo Ai, Junru Chen
 
 # our origin results
 our origin results on a deep learning framework without open source:
-|backbone|mAP local|
+|backbone|mAP server|
 |---|---|
 |res50|0.614|
 |res50+res50attr|0.638|
