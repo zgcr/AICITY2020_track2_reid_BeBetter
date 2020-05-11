@@ -6,7 +6,7 @@ In AIcity2020 Track2, we rank number 6(team ID 44) among all the teams with the 
 Chaoran Zhuge, Yujie Peng, Yadong Li, Jiangbo Ai, Junru Chen
 
 # Notice
-**Because we implemented it on a deep learning framework without open source before, we are still reproducing our result on pytorch. Due to the slow training speed on pytorch by using densenet, we still need about one week to release(about 2020.5.17) the final ensemble result on pytorch.**
+**Because we implemented it on a deep learning framework without open source before, we are still reproducing our result on pytorch. Due to the slow training speed on pytorch by using densenet, we still need about one week to release(about 2020.5.15) the final ensemble result on pytorch.**
 
 # our origin results
 our origin results on a deep learning framework without open source:
@@ -16,7 +16,13 @@ our origin results on a deep learning framework without open source:
 |res50+res50attr|0.638|
 |res50+res50attr+dense161bs|0.657|
 |res50+res50attr+dense161bs+dense161|0.662|
-|res50+res50attr+dense161bs+dense161+hrnetw18c|0.668|
+|res50+res50attr+dense161bs+dense161+hrnetw18c|0.6683|
+
+# our reproducing results on pytorch
+We are still reproducing the final ensemble result on pytorch(The final result will be relased at about 2020.5.15).
+|backbone|mAP local|mAP server|
+|---|---|---|
+|res50|0.6254|0.6108|
 
 # Preparing the dataset
 If you want to reproduce our imagenet pretrained models,you need download ILSVRC2012 dataset,and make sure the folder architecture as follows:

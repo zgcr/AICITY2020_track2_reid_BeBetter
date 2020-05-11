@@ -32,6 +32,12 @@ class Config(object):
             RandomShrink(),
             transforms.ToPILImage(),
             transforms.Resize((input_image_size, input_image_size)),
+            transforms.RandomApply([
+                transforms.ColorJitter(
+                    brightness=0.4, contrast=0.4, saturation=0.4, hue=0)
+            ],
+                                   p=0.5),
+            transforms.RandomHorizontalFlip(),
             transforms.Pad(10),
             transforms.RandomCrop(input_image_size),
             RandomErasing(),
