@@ -11,7 +11,7 @@ __all__ = ['densenet161']
 
 model_urls = {
     'densenet161':
-    '/home/zhugechaoran/Downloads/aicity2020_track2/public/pretrained_models/densenet/densenet161-epoch100-acc79.208.pth',
+    '/home/zhugechaoran/Downloads/pytorch_imagenet_model/public/pretrained_models/densenet/densenet161-epoch100-acc79.208.pth',
 }
 
 

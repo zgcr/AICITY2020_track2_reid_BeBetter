@@ -1,4 +1,12 @@
+import sys
 import os
+import warnings
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
+warnings.filterwarnings('ignore')
+
 import json
 import argparse
 import numpy as np
@@ -302,11 +310,8 @@ def get_sorted_index(distance, track2indexs, g_info, thre, max_contine=500):
     return redata[:100]
 
 
-def get_rerank_result(rerank,
-                      bmk,
-                      qg_precision=0.1,
-                      color_bias=400,
-                      type_bias=400):
+def get_rerank_result(rerank, bmk, qg_precision=0.1, color_bias=0,
+                      type_bias=0):
     """
     qg_precision : 卡一个precision的阈值；
     color_bias : color不同时，增加的距离惩罚项；
@@ -600,41 +605,44 @@ def val_ensemble_model_from_dist_feature(result_name,
                                          dists_pkls,
                                          query_features_pkls,
                                          gallery_features_pkls,
+                                         bias,
+                                         group_threhold,
                                          model_weights=[1, 1, 1, 1, 1]):
-    assert len(dists_pkls) >= 2
     dist_sum = pickle.load(open(dists_pkls[0], 'rb'))
     qfeats = pickle.load(open(query_features_pkls[0], 'rb'))
     gfeats = pickle.load(open(gallery_features_pkls[0], 'rb'))
 
     dist_sum = model_weights[0]**2 * dist_sum
     qfeats, gfeats = [model_weights[0] * qfeats], [model_weights[0] * gfeats]
-
-    for dist_pkl, query_pkl, gallery_pkl, model_weight in zip(
-            dists_pkls[1:], query_features_pkls[1:], gallery_features_pkls[1:],
-            model_weights[1:]):
-        dist = pickle.load(open(dist_pkl, 'rb'))
-        qfeat = pickle.load(open(query_pkl, 'rb'))
-        gfeat = pickle.load(open(gallery_pkl, 'rb'))
-
-        dist_sum += dist * (model_weight**2)
-        qfeats.append(qfeat * model_weight)
-        gfeats.append(gfeat * model_weight)
-    query_f = np.concatenate(qfeats, axis=1)
-    gallery_f = np.concatenate(gfeats, axis=1)
+    if len(dists_pkls) != 1:
+        for dist_pkl, query_pkl, gallery_pkl, model_weight in zip(
+                dists_pkls[1:], query_features_pkls[1:],
+                gallery_features_pkls[1:], model_weights[1:]):
+            dist = pickle.load(open(dist_pkl, 'rb'))
+            qfeat = pickle.load(open(query_pkl, 'rb'))
+            gfeat = pickle.load(open(gallery_pkl, 'rb'))
+            dist_sum += dist * (model_weight**2)
+            qfeats.append(qfeat * model_weight)
+            gfeats.append(gfeat * model_weight)
+        query_combine = np.concatenate(qfeats, axis=1)
+        gallery_combine = np.concatenate(gfeats, axis=1)
+    else:
+        query_combine = np.array(qfeats[0])
+        gallery_combine = np.array(gfeats[0])
+    print(dist_sum.shape, query_combine.shape, gallery_combine.shape)
     txt = generate_result_txt(dist_sum,
-                              query_f,
-                              gallery_f,
+                              query_combine,
+                              gallery_combine,
                               val_dataset_pkl,
-                              color_bias=400,
-                              type_bias=400,
-                              group_threhold=0.05,
+                              color_bias=bias,
+                              type_bias=bias,
+                              group_threhold=group_threhold,
                               group_rerank=True)
     with open('{}_result.txt'.format(result_name), 'w') as f:
         f.write(txt)
     evl = Evaluator(val_dataset_pkl)
     effi = evl.eval_from_txt(txt)
-    with open('{}_map_and_cmc.txt'.format(result_name), 'w') as f:
-        f.write(effi)
+    print(effi)
 
 
 if __name__ == '__main__':
@@ -642,11 +650,16 @@ if __name__ == '__main__':
     parser.add_argument('-dists', type=str, nargs='+', default=[])
     parser.add_argument('-querys', type=str, nargs='+', default=[])
     parser.add_argument('-gallerys', type=str, nargs='+', default=[])
+    parser.add_argument('-bias', type=float, default=400)
+    parser.add_argument('-group_threhold', type=float, default=0.05)
+    parser.add_argument('-result_name', type=str, default="ensemble")
     args = parser.parse_args()
     val_ensemble_model_from_dist_feature(
-        "ensemble",
+        args.result_name,
         '/data/aicity_pkl/benchmark_pytorch.pkl',
         args.dists,
         args.querys,
         args.gallerys,
+        args.bias,
+        args.group_threhold,
         model_weights=[1, 1, 1, 1, 1])

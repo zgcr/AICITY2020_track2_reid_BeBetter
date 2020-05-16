@@ -22,7 +22,31 @@ our origin results on a deep learning framework without open source:
 We are still reproducing the final ensemble result on pytorch(The final result will be relased at about 2020.5.15).
 |backbone|mAP local|mAP server|
 |---|---|---|
-|res50|0.6254|0.6108|
+|res50|0.617|0.6016|
+|res50+res50attr|0.6436|0.6286|
+|res50+res50attr+hrnetw18c|0.6527|0.6373|
+|res50+res50attr+hrnetw18c+dense161bs|0.6667|0.6506|
+
+# requirements
+1.pytorch==1.4.0
+2.torchvision==0.5.0
+3.python==3.6
+4.opencv-python==4.1.1.264
+5.apex==0.1
+
+if you use python3.7,please use the follwing orders to install apex:
+```
+git clone https://github.com/NVIDIA/apex
+cd apex
+pip install -v --no-cache-dir --global-option="--cpp_ext" --global-option="--cuda_ext" ./
+```
+if you use python 3.6,please use the follwing orders to install apex:
+```
+git clone https://github.com/NVIDIA/apex
+cd apex
+pip install -v --no-cache-dir ./
+```
+Using apex to train can reduce video memory usage by 25% -30%,and the trained model has the same performance as not using apex.
 
 # Preparing the dataset
 If you want to reproduce our imagenet pretrained models,you need download ILSVRC2012 dataset,and make sure the folder architecture as follows:

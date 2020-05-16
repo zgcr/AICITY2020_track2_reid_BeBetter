@@ -211,7 +211,7 @@ class RandomShrink(object):
     def __call__(self, img):
         height, width, _ = img.shape
         size = (width, height)
-        if np.random.rand() < self.prob:
+        if np.random.uniform(0, 1) < self.prob:
             scale = random.random() * 0.4 + 0.2
             scale_size = (int(width * scale), int(height * scale))
             if width > self.input_size or height > self.input_size:
@@ -219,6 +219,19 @@ class RandomShrink(object):
             return cv2.resize(img, size, interpolation=self.interpolation)
         else:
             return img
+
+
+class RandomGaussianBlur(object):
+    def __init__(self, prob=0.5, sigma=1.2):
+        self.prob = prob
+        self.sigma = sigma
+
+    def __call__(self, image):
+        if np.random.uniform(0, 1) < self.prob:
+            return image
+        image = cv2.GaussianBlur(image, (5, 5), self.sigma)
+
+        return image
 
 
 class RandomErasing(object):

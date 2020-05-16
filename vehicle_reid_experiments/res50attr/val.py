@@ -395,7 +395,7 @@ def get_dist_feature(val_loader, model, epoch, norm_feature=True):
     with torch.no_grad():
         for inputs in val_loader:
             inputs = inputs.cuda()
-            batch_feat_bn,_,  _, _ = model(inputs)
+            batch_feat_bn, _, _, _ = model(inputs)
             total_features.append(batch_feat_bn)
 
     total_features = torch.cat(total_features, axis=0)

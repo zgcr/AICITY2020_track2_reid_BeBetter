@@ -31,7 +31,7 @@ class Config(object):
         use_crop_box=True,
         use_background_substitution=False,
         transform=transforms.Compose([
-            RandomShrink(),
+            RandomShrink(prob=0.6),
             transforms.ToPILImage(),
             transforms.Resize((input_image_size, input_image_size)),
             transforms.RandomApply([
