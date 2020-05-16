@@ -28,12 +28,13 @@ We are still reproducing the final ensemble result on pytorch(The final result w
 |res50+res50attr+hrnetw18c+dense161bs|0.6667|0.6506|
 
 # requirements
+```
 1.pytorch==1.4.0
 2.torchvision==0.5.0
 3.python==3.6
 4.opencv-python==4.1.1.264
 5.apex==0.1
-
+```
 if you use python3.7,please use the follwing orders to install apex:
 ```
 git clone https://github.com/NVIDIA/apex
