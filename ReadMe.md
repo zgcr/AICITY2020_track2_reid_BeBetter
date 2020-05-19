@@ -153,3 +153,14 @@ If you want to get ensemble results,just enter public/reid/,and run:
 ./val_ensemble1.sh
 ```
 Please ensure that the order of each pkl in dists/query features/gallery features are same.
+
+# Citation
+If you find our work useful in your research, please consider citing:
+```
+@inproceedings{zgcr,
+ title={Attribute-guided Feature Extraction and Augmentation Robust Learning for Vehicle Re-identification},
+ author={Chaoran Zhuge, Yujie Peng, Yadong Li, Jiangbo Ai, Junru Chen},
+ booktitle={AI City Challenge 2020 CVPR Workshop},
+ year={2020}
+}
+```
