@@ -19,13 +19,14 @@ our origin results on a deep learning framework without open source:
 |res50+res50attr+dense161bs+dense161+hrnetw18c|0.6683|
 
 # our reproducing results on pytorch
-We are still reproducing the final ensemble result on pytorch(The final result will be relased at about 2020.5.15).
+We have already reproduced our method on pytorch.The final result is a little lower than our origin results,which may caused by the difference of deep learning frameworks. 
 |backbone|mAP local|mAP server|
 |---|---|---|
 |res50|0.617|0.6016|
 |res50+res50attr|0.6436|0.6286|
 |res50+res50attr+hrnetw18c|0.6527|0.6373|
 |res50+res50attr+hrnetw18c+dense161bs|0.6667|0.6506|
+|res50+res50attr+hrnetw18c+dense161bs+dense161|0.6730|0.6568|
 
 # requirements
 ```
@@ -149,6 +150,6 @@ finish training, best_map: 0.xxxx, best_top1:0.xxxx
 This result are local result eval from our val function,same rules as server.But for some unknown reason,the results always higher 1.0%-1.3% map than server result.
 If you want to get ensemble results,just enter public/reid/,and run:
 ```
-python3 val.py -dists all_feature_extractor_dists_pkl_path -querys all_feature_extractor_query_pkl_path -gallerys all_feature_extractor_gallery_pkl_path
+./val_ensemble1.sh
 ```
 Please ensure that the order of each pkl in dists/query features/gallery features are same.

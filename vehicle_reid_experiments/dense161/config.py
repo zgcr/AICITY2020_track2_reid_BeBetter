@@ -37,6 +37,7 @@ class Config(object):
                     brightness=0.4, contrast=0.4, saturation=0.4, hue=0)
             ],
                                    p=0.5),
+            transforms.RandomGrayscale(p=0.15),
             transforms.RandomHorizontalFlip(),
             transforms.Pad(10),
             transforms.RandomCrop(input_image_size),
