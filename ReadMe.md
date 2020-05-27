@@ -5,9 +5,6 @@ In AIcity2020 Track2, we rank number 6(team ID 44) among all the teams with the 
 # Authors
 Chaoran Zhuge, Yujie Peng, Yadong Li, Jiangbo Ai, Junru Chen
 
-# Notice
-**Because we implemented it on a deep learning framework without open source before, we are still reproducing our result on pytorch. Due to the slow training speed on pytorch by using densenet, we still need about one week to release(about 2020.5.15) the final ensemble result on pytorch.**
-
 # our origin results
 our origin results on a deep learning framework without open source:
 |backbone|mAP server|
