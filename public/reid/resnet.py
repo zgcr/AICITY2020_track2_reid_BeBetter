@@ -1,6 +1,15 @@
 """
 https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py
 """
+import os
+import sys
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
+
+from public.path import pretrained_models_path
+
 import torch
 import torch.nn as nn
 
@@ -10,7 +19,8 @@ __all__ = [
 
 model_urls = {
     'resnet50':
-    '/home/zhugechaoran/Downloads/aicity2020_track2/public/pretrained_models/resnet/resnet50-ibn-320-epoch90-acc78.292.pth',
+    '{}/resnet50-ibn-input320-epoch100-acc78.292.pth'.format(
+        pretrained_models_path),
 }
 
 
@@ -306,9 +316,9 @@ def resnet50(pretrained=False, progress=True, **kwargs):
 
 
 class ResNet50Backbone(nn.Module):
-    def __init__(self, num_classes):
+    def __init__(self, pretrained, num_classes):
         super(ResNet50Backbone, self).__init__()
-        self.model = resnet50(**{"pretrained": True})
+        self.model = resnet50(**{"pretrained": pretrained})
         del self.model.fc
 
         self.fc1 = nn.Linear(2048, 2048)
@@ -337,15 +347,16 @@ class ResNet50Backbone(nn.Module):
 
 
 def resnet50backbone(pretrained, num_classes):
-    model = ResNet50Backbone(num_classes)
+    model = ResNet50Backbone(pretrained, num_classes)
 
     return model
 
 
 class ResNet50AttrBackbone(nn.Module):
-    def __init__(self, id_num_classes, color_num_classes, type_num_classes):
+    def __init__(self, pretrained, id_num_classes, color_num_classes,
+                 type_num_classes):
         super(ResNet50AttrBackbone, self).__init__()
-        self.model = resnet50(**{"pretrained": True})
+        self.model = resnet50(**{"pretrained": pretrained})
         del self.model.fc
 
         self.fc1 = nn.Linear(2048, 2048)
@@ -393,7 +404,7 @@ class ResNet50AttrBackbone(nn.Module):
 
 def resnet50attrbackbone(pretrained, id_num_classes, color_num_classes,
                          type_num_classes):
-    model = ResNet50AttrBackbone(id_num_classes, color_num_classes,
+    model = ResNet50AttrBackbone(pretrained, id_num_classes, color_num_classes,
                                  type_num_classes)
 
     return model

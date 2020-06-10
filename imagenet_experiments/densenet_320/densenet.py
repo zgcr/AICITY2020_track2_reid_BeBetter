@@ -1,3 +1,12 @@
+import os
+import sys
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
+
+from public.path import pretrained_models_path
+
 import re
 import torch
 import torch.nn as nn
@@ -7,11 +16,13 @@ from collections import OrderedDict
 from torch import Tensor
 from torch.jit.annotations import List
 
-__all__ = ['densenet161']
+__all__ = [
+    'densenet161',
+]
 
 model_urls = {
     'densenet161':
-    '/home/zhugechaoran/Downloads/aicity2020_track2/public/pretrained_models/densenet/densenet161-epoch100-acc79.208.pth',
+    '{}/densenet161-epoch100-acc79.208.pth'.format(pretrained_models_path),
 }
 
 

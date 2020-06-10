@@ -1,3 +1,12 @@
+import os
+import sys
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
+
+from public.path import pretrained_models_path
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -8,7 +17,7 @@ __all__ = [
 
 model_urls = {
     "HRNet_W18":
-    '/home/zhugechaoran/Downloads/aicity2020_track2/public/pretrained_models/hrnet/hrnetv2_w18_imagenet_pretrained.pth',
+    '{}/hrnetv2_w18_imagenet_pretrained.pth'.format(pretrained_models_path),
 }
 
 hrnet_w_config = {

@@ -1,3 +1,12 @@
+import os
+import sys
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
+
+from public.path import AICITY2020_path
+
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
@@ -5,17 +14,18 @@ from public.reid.utils import CoverageKPSampler, VehicleTrainDataset, VehicleVal
 
 
 class Config(object):
-    network_name = "dense161bs"
+    network_name = "dense161"
     log = './log'  # Path to save log
     checkpoints = './checkpoints'
     resume = './checkpoints/latest.pth'
     evaluate = None  # evaluate model path
-    root_path = '/data/AICITY2020/AIC20_track2/'
+    root_path = os.path.join(AICITY2020_path, 'AIC20_track2')
     train_dataset_pkl = [
-        '/data/aicity_pkl/track2_train_pytorch.pkl',
-        '/data/aicity_pkl/track2_simu_train_pytorch.pkl',
+        '{}/aicity_pkl/track2_train_pytorch.pkl'.format(AICITY2020_path),
+        '{}/aicity_pkl/track2_simu_train_pytorch.pkl'.format(AICITY2020_path),
     ]
-    val_dataset_pkl = '/data/aicity_pkl/benchmark_pytorch.pkl'
+    val_dataset_pkl = '{}/aicity_pkl/benchmark_pytorch.pkl'.format(
+        AICITY2020_path)
 
     pretrained = True
     num_classes = 1695
@@ -83,7 +93,3 @@ class Config(object):
     lr = 3.5e-4
     weight_decay = 5e-4
     print_interval = 100
-
-
-if __name__ == '__main__':
-    config = Config()

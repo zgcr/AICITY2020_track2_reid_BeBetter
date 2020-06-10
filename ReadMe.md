@@ -140,7 +140,7 @@ For example,if you want to reproduce our res50 feature extractor,just enter vehi
 Please make sure you can load the pretrained models and our dataset_pkls correctly.
 # single feature extractor testing and ensemble testing
 For each feature extractor training code,you can get a best model and related dist pkl, query features pkl,gallery features pkl,and txt for server commit.
-You can find Each feature extractor bese model performance at the end of training_folder/log/__main__.info.log.Just like:
+You can find Each feature extractor best model performance at the end of training_folder/log/__main__.info.log.Just like:
 ```
 finish training, best_map: 0.xxxx, best_top1:0.xxxx
 ```

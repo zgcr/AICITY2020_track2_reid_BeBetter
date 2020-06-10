@@ -1,3 +1,11 @@
+import os
+import sys
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
+
+from public.path import ILSVRC2012_path
 import torchvision.transforms as transforms
 import torchvision.datasets as datasets
 
@@ -7,8 +15,8 @@ class Config(object):
     checkpoint_path = './checkpoints'  # Path to store checkpoint model
     resume = './checkpoints/latest.pth'  # load checkpoint model
     evaluate = None  # evaluate model path
-    train_dataset_path = '/data/ILSVRC2012/train/'
-    val_dataset_path = '/data/ILSVRC2012/val/'
+    train_dataset_path = os.path.join(ILSVRC2012_path, 'train')
+    val_dataset_path = os.path.join(ILSVRC2012_path, 'val')
 
     network = "densenet161"
     pretrained = False
@@ -44,5 +52,5 @@ class Config(object):
     weight_decay = 1e-4
     momentum = 0.9
     num_workers = 8
-    print_interval = 100
+    print_interval = 16
     apex = False

@@ -1,6 +1,15 @@
 """
 https://github.com/pytorch/vision/blob/master/torchvision/models/resnet.py
 """
+import os
+import sys
+
+BASE_DIR = os.path.dirname(
+    os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(BASE_DIR)
+
+from public.path import pretrained_models_path
+
 import torch
 import torch.nn as nn
 
@@ -10,7 +19,8 @@ __all__ = [
 
 model_urls = {
     'resnet50':
-    '/home/zhugechaoran/Downloads/pytorch_imagenet_model/public/pretrained_models/resnet/resnet50-ibn-320-epoch90-acc78.292.pth',
+    '{}/resnet50-ibn-input320-epoch100-acc78.292.pth'.format(
+        pretrained_models_path),
 }
 
 
